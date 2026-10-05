@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795136367786",
+    "project_id": "grivas-ad2026",
+    "storage_bucket": "grivas-ad2026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795136367786:android:10b6a860a0ad76151744d3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_fb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF0Pdh7_tG8cwjfrGIUn-wxeZMV7KljX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

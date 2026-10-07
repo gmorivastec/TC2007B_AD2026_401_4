@@ -52,7 +52,7 @@ class MainApp extends StatelessWidget {
         ),
         body: 
         Center(
-          child: LoginWidget()
+          child: RealTimeWidget()
         )
       ),
     );
@@ -186,6 +186,57 @@ class _LoginWidgetState extends State<LoginWidget>{
           child: const Text("Query")
         ),
       ],
+    );
+  }
+}
+
+class RealTimeWidget extends StatefulWidget {
+  const new({super.key});
+
+  @override
+  State<RealTimeWidget> createState() => _RealTimeWidgetState();
+}
+
+class _RealTimeWidgetState extends State<RealTimeWidget> {
+
+  final Stream<QuerySnapshot> puppiesStream = 
+    FirebaseFirestore.instance.collection("perritos").snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: puppiesStream, 
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+        // if we have error just show a message
+        if(snapshot.hasError) {
+          return const Text("ERROR IN THE PERRITOS STREAM");
+        }
+
+        // if the connection is not done display an activity indicator
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return const CircularProgressIndicator();
+        }
+
+        // if its done display the data
+        return ListView(
+          children: snapshot.data!.docs.map(
+            (DocumentSnapshot doc) {
+
+              // objective: generate a widget based on the current
+              // data doc
+
+              // get data from current doc in a format we can work with
+              Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+
+              return ListTile(
+                title: Text(data['name']),
+                subtitle: Text(data['breed']),
+              );
+            }
+          ).toList().cast()
+        );
+      }
     );
   }
 }
